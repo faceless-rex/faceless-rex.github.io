@@ -18,7 +18,7 @@ body{
 }
 
 .title {
-    background-color: rgb(40,0,0);
+    background-color: rgb(138,43,226);
     width: 100%;
     text-align: center
 }
@@ -102,10 +102,9 @@ pre code {
 <tbody>
 <tr>
 <td>
-<h1>Zero-Shot Foreign Accent Conversion without a Native Reference</h1>
-<h2>Waris Quamer<sup>1</sup>, Anurag Das<sup>1</sup>, John Levis<sup>2</sup>, Evgeny Chukharev-Hudilainen<sup>2</sup>, Ricardo Gutierrez-Osuna<sup>1</sup></h2>
-<h2><sup>1</sup>Department of Computer Science and Engineering, Texas A&M University, USA</h2>
-<h2><sup>2</sup>Department of English, Iowa State University, USA</h2>
+<h1>Non-Parallel Accent Conversion using a Pseudo Siamese Disentanglement Network</h1>
+<h2>Dongya Jia<sup>1</sup>, Qiao Tian<sup>1</sup>, Jiaxin Chen<sup>2</sup>, Yuanzhe Chen<sup>2</sup>, Kainan Peng<sup>1</sup>, Mingbo Ma<sup>1</sup>, Yuping Wang<sup>1</sup>, Yuxuan Wang<sup>1</sup></h2>
+<h2><sup>1</sup>Speech, Audio & Music Intelligence (SAMI), ByteDance</h2>
 </td>
 </tbody>
 </table>
@@ -114,13 +113,13 @@ pre code {
 <h2>Notes</h2>
 
 <ul>
-<li>The L1 speaker speaks the General American Accent</li>
-<li>YKWK's native language is Korean</li>
-<li>TXHC's native language is Chinese</li>
+<li>The goal: convert accent while attaining content and speaker timbre</li>
+<li>The input speech are from native speakers.</li>
+<li>The target accent is <b>Indian accent</b></li>
 <li>Dataset (L2-ARCTIC corpus [1]): <a href="https://psi.engr.tamu.edu/l2-arctic-corpus/">https://psi.engr.tamu.edu/l2-arctic-corpus/</a></li>
 </ul>
 
-<h2>Experiment : Evaluating the reference-free golden speakers</h2>
+<h2>Experiment : convert</h2>
 
 <ul>
     <li><b>Input speech</b>: original unmodified L2 speech recordings</li>
