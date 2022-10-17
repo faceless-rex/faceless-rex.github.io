@@ -9,7 +9,7 @@
 
   gtag('config', 'UA-171609755-1');
 </script>
-<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>Zero-shot Reference-Free AC Audio Samples</title>
+<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>Non-Parallel Accent Conversion using Pseudo Siamese Disentanglement Network</title>
 <link rel="icon" href="../../media/image/favicon.png"></head>
 <style>
 body{
@@ -18,7 +18,7 @@ body{
 }
 
 .title {
-    background-color: rgb(138,43,226);
+    background-color: rgb(25,25,112);
     width: 100%;
     text-align: center
 }
@@ -104,7 +104,7 @@ pre code {
 <td>
 <h1>Non-Parallel Accent Conversion using a Pseudo Siamese Disentanglement Network</h1>
 <h2>Dongya Jia<sup>1</sup>, Qiao Tian<sup>1</sup>, Jiaxin Chen<sup>2</sup>, Yuanzhe Chen<sup>2</sup>, Kainan Peng<sup>1</sup>, Mingbo Ma<sup>1</sup>, Yuping Wang<sup>1</sup>, Yuxuan Wang<sup>1</sup></h2>
-<h2><sup>1</sup>Speech, Audio & Music Intelligence (SAMI), ByteDance</h2>
+<h2><sup>1</sup><b>S</b>peech, <b>A</b>udio & <b>M</b>usic <b>I</b>ntelligence (SAMI), ByteDance</h2>
 </td>
 </tbody>
 </table>
@@ -115,45 +115,51 @@ pre code {
 <ul>
 <li>The goal: convert accent while attaining content and speaker timbre</li>
 <li>The input speech are from native speakers.</li>
-<li>The target accent is <b>Indian accent</b></li>
-<li>Dataset (L2-ARCTIC corpus [1]): <a href="https://psi.engr.tamu.edu/l2-arctic-corpus/">https://psi.engr.tamu.edu/l2-arctic-corpus/</a></li>
+<li>The target accent is Indian accent</li>
 </ul>
 
-<h2>Experiment : convert</h2>
+<h2>Experiment : </h2>
 
 <ul>
-    <li><b>Input speech</b>: original unmodified L2 speech recordings</li>
-    <li><b>Baseline</b>: the reference-free FAC system of Zhao et al. [2]; samples provided through the courtesy of G. Zhao (TAMU)</li>
-    <li><b>Proposed</b>: the proposed reference-free accent conversion model</li>
+    <li><b>Input speech</b>: original speech recordings</li>
+    <li><b>Baseline</b>: we drop the timbre augmentation and the auxiliary encoder, yielding a system similar to [1] </li>
+    <li><b>Proposed</b>: the proposed method</li>
+    <li><b>Ablation</b>: Pseudo Siamese Network is degraded into two separate identical decoders</li>
 </ul>
 
 <table width="100%" class="samples">
 <tbody>
     <tr>
-        <th>L2 speaker</th>
+        <th>Speaker</th>
         <th>Text</th>
         <th>Input speech</th>
-        <th>Reference-Free Accent conversion (Baseline)</th>
-        <th>Reference-Free Accent conversion (Proposed)</th>
+        <th>Baseline</th>
+        <th>Abaltion</th>
+        <th>Proposed</th>
     </tr>
     <tr>
-        <td rowspan="3">YKWK</td>
+        <td rowspan="3">Female1</td>
         <td>
             He had fulfilled his duty and paid properly.
         </td>
         <td>
             <audio controls="">
-                <source src="wav/reference_l2/ykwk_1102.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+                <source src="wav/input/6.wav" type="audio/wav">Your browser does not support the audio tag.</source>
             </audio>
         </td>
         <td>
             <audio controls="">
-                <source src="wav/baseline/ykwk_1102.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+                <source src="wav/baseline/6.wav" type="audio/wav">Your browser does not support the audio tag.</source>
             </audio>
         </td>
         <td>
             <audio controls="">
-                <source src="wav/proposed/ykwk_1102.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+                <source src="wav/ablation/6.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/proposed/6.wav" type="audio/wav">Your browser does not support the audio tag.</source>
             </audio>
         </td>
     </tr>
@@ -163,17 +169,22 @@ pre code {
         </td>
         <td>
             <audio controls="">
-                <source src="wav/reference_l2/ykwk_1108.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+                <source src="wav/input/7.wav" type="audio/wav">Your browser does not support the audio tag.</source>
             </audio>
         </td>
         <td>
             <audio controls="">
-                <source src="wav/baseline/ykwk_1108.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+                <source src="wav/baseline/7.wav" type="audio/wav">Your browser does not support the audio tag.</source>
             </audio>
         </td>
         <td>
             <audio controls="">
-                <source src="wav/proposed/ykwk_1108.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+                <source src="wav/ablation/7.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/proposed/7.wav" type="audio/wav">Your browser does not support the audio tag.</source>
             </audio>
         </td>
     </tr>
@@ -183,38 +194,48 @@ pre code {
         </td>
         <td>
             <audio controls="">
-                <source src="wav/reference_l2/ykwk_1116.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+                <source src="wav/input/8.wav" type="audio/wav">Your browser does not support the audio tag.</source>
             </audio>
         </td>
         <td>
             <audio controls="">
-                <source src="wav/baseline/ykwk_1116.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+                <source src="wav/baseline/8.wav" type="audio/wav">Your browser does not support the audio tag.</source>
             </audio>
         </td>
         <td>
             <audio controls="">
-                <source src="wav/proposed/ykwk_1116.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+                <source src="wav/ablation/8.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/proposed/8.wav" type="audio/wav">Your browser does not support the audio tag.</source>
             </audio>
         </td>
     </tr>
     <tr>
-        <td rowspan="3">TXHC</td>
+        <td rowspan="3">Female2</td>
         <td>
             What an excited whispering and conferring took place.
         </td>
         <td>
             <audio controls="">
-                <source src="wav/reference_l2/txhc_1083.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+                <source src="wav/input/12.wav" type="audio/wav">Your browser does not support the audio tag.</source>
             </audio>
         </td>
         <td>
             <audio controls="">
-                <source src="wav/baseline/txhc_1083.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+                <source src="wav/baseline/12.wav" type="audio/wav">Your browser does not support the audio tag.</source>
             </audio>
         </td>
         <td>
             <audio controls="">
-                <source src="wav/proposed/txhc_1083.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+                <source src="wav/ablation/12.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/proposed/12.wav" type="audio/wav">Your browser does not support the audio tag.</source>
             </audio>
         </td>
     </tr>
@@ -224,17 +245,22 @@ pre code {
         </td>
         <td>
             <audio controls="">
-                <source src="wav/reference_l2/txhc_1085.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+                <source src="wav/input/13.wav" type="audio/wav">Your browser does not support the audio tag.</source>
             </audio>
         </td>
         <td>
             <audio controls="">
-                <source src="wav/baseline/txhc_1085.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+                <source src="wav/baseline/13.wav" type="audio/wav">Your browser does not support the audio tag.</source>
             </audio>
         </td>
         <td>
             <audio controls="">
-                <source src="wav/proposed/txhc_1085.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+                <source src="wav/ablation/13.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/proposed/13.wav" type="audio/wav">Your browser does not support the audio tag.</source>
             </audio>
         </td>
     </tr>
@@ -244,17 +270,22 @@ pre code {
         </td>
         <td>
             <audio controls="">
-                <source src="wav/reference_l2/txhc_1132.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+                <source src="wav/input/14.wav" type="audio/wav">Your browser does not support the audio tag.</source>
             </audio>
         </td>
         <td>
             <audio controls="">
-                <source src="wav/baseline/txhc_1132.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+                <source src="wav/baseline/14.wav" type="audio/wav">Your browser does not support the audio tag.</source>
             </audio>
         </td>
         <td>
             <audio controls="">
-                <source src="wav/proposed/txhc_1132.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+                <source src="wav/ablation/14.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/proposed/14.wav" type="audio/wav">Your browser does not support the audio tag.</source>
             </audio>
         </td>
     </tr>
@@ -262,7 +293,6 @@ pre code {
 </table>
 
 <h2>References</h2>
-<p>[1] G. Zhao <i>et al</i>., "L2-ARCTIC: A non-native English speech corpus," in <i>Proc. Interspeech</i>, 2018, pp. 2783-2787.</p>
-<p>[2] G. Zhao, S. Ding, and R. Gutierrez-Osuna., "Converting Foreign Accent Speech Without a Reference." <i>IEEE/ACM Transactions on Audio, Speech, and Language Processing</i>, 2021, pp.2367-2381.</p>
+<p>[1] Noam Mor, Lior Wolf, Adam Polyak, and Yaniv Taigman, “Autoencoder-based music translation,” in <i>International Conference on Learning Representations</i>, 2019</p>
 </main>
 </body></html>
