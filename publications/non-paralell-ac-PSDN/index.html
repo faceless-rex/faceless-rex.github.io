@@ -110,14 +110,17 @@ pre code {
 </table>
 <main>
 
-<h2>Abstract</h2>
+<h2>1. Abstract</h2>
 <ul>
 	<b>The main goal of accent conversion (AC) is to convert the accent of speech into the target accent while preserving the content and timbre</b>. Previous reference-based methods rely on a reference utterance in the inference phase, which limits their practical application. What's more, previous reference-free methods mostly require parallel data in the training phase. In this paper, we propose a reference-free method based on non-parallel data from the perspective of feature disentanglement. Pseudo Siamese Disentanglement Network (PSDN) is proposed to disentangle accent information from the content representation and model the target accent. Besides, a timbre augmentation technique is proposed to enhance the ability of timbre retaining for speakers without target-accent data. Experimental results show that the proposed system can convert the accent of native American English speech into Indian accent with higher accentedness (3.34) than the baseline (2.72) and input (1.34). Moreover, the naturalness of converted speech is comparable to that of the input.
 </ul>
 
-<h2>Experiments on synthetic data: </h2>
+<h2>2. Experiments on synthetic data: </h2>
 <ul>
-	Model is trained and evaluated on TTS synthetic speech. The target accent is Indian accent.
+	Indian accent is used as the target accent.
+</ul>
+<ul>
+	Model is trained and evaluated on TTS synthetic speech. 
 </ul>
 <ul>
     <li><b>Input speech</b>: Original speech recordings.</li>
@@ -444,17 +447,23 @@ pre code {
 </tbody>
 </table>
 
-<h2>Experiments on real data: foreign-to-native (Updated on 2022.1.16)</h2>
+<h2>3. Experiments on real data: foreign-to-native (Updated on 2022.1.16)</h2>
 <ul>
-	Two types of native accent are evaluated as target accent, including British and American.
-	Models are trained on L2-ARCTIC[3] as well as inhouse datasets corresponding to the target accent, respectively.
+	British and American are used as the target accent. Both of them are native accent.
 </ul>
 <ul>
-    <li><b>Recording of British accent:</b>: 
+	Models are trained on L2-ARCTIC[2] as well as inhouse datasets corresponding to the target accent, respectively.
+</ul>
+<ul>
+    <li><b>A sample of inhouse British accent dataset:</b>
             <audio controls="">
                 <source src="wav/real/foreign_to_native/british_recording/10000001-1.wav" type="audio/wav">Your browser does not support the audio tag.</source>
             </audio></li>
-    <li><b>Recording of American accent:</b>: Original speech recordings.</li>
+    <li><b>A sample of inhouse American accent dataset:</b>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/american_recording/100013.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio></li>
+		</li>
 </ul>
 
 <table width="100%" class="samples">
@@ -609,10 +618,135 @@ pre code {
 </tbody>
 </table>
 
-<h2>Experiments on real data: native-to-foreign (Updated on 2022.1.16)</h2>
+<h2>4. Experiments on real data: native-to-foreign (Updated on 2022.1.16)</h2>
+<ul>
+	Indian accent is used as the target accent.
+</ul>
+<ul>
+	Models are trained on LibriTTS[3] as well as inhouse datasets corresponding to the target accent.
+</ul>
+<ul>
+    <li><b>A sample of inhouse Indian accent dataset:</b>: 
+            <audio controls="">
+                <source src="wav/real/native_to_foreign/hindi_recording/000050007.WAV" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio></li>
+</ul>
+<table width="100%" class="samples">
+<tbody>
+    <tr>
+        <th>Speaker</th>
+        <th>Input speech</th>
+        <th>Proposed(Indian)</th>
+    </tr>
+    <tr>
+        <td rowspan="2">Female1(American)</td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/native_to_foreign/native_input/F01_Eng_000103.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/native_to_foreign/hindi_output/F01_Eng_000103_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <audio controls="">
+                <source src="wav/real/native_to_foreign/native_input/F01_Eng_000104.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/native_to_foreign/hindi_output/F01_Eng_000104_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="2">Female2(American)</td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/native_to_foreign/native_input/F05_Eng_000101.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/native_to_foreign/hindi_output/F05_Eng_000101_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <audio controls="">
+                <source src="wav/real/native_to_foreign/native_input/F05_Eng_000105.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/native_to_foreign/hindi_output/F05_Eng_000105_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="2">Male1(American)</td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/native_to_foreign/native_input/M01_Eng_000100.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/native_to_foreign/hindi_output/M01_Eng_000100_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <audio controls="">
+                <source src="wav/real/native_to_foreign/native_input/M01_Eng_000109.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/native_to_foreign/hindi_output/M01_Eng_000109_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="2">Male2(American)</td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/native_to_foreign/native_input/M03_Eng_000100.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/native_to_foreign/hindi_output/M03_Eng_000100_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <audio controls="">
+                <source src="wav/real/native_to_foreign/native_input/M03_Eng_000101.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/native_to_foreign/hindi_output/M03_Eng_000101_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+
+
+</tbody>
+</table>
 
 
 <h2>References</h2>
 <p>[1] Noam Mor, Lior Wolf, Adam Polyak, and Yaniv Taigman, “Autoencoder-based music translation,” in <i>International Conference on Learning Representations</i>, 2019</p>
+<p>[2] Guanlong Zhao, Sinem Sonsaat, Alif Silpachai, et al., “L2-ARCTIC: A Non-Native English Speech Corpus” in <i>Interspeech</i>, 2018</p>
+<p>[3] Heiga Zen, Viet Dang, Rob Clark, et al., “LibriTTS: A Corpus Derived from LibriSpeech for Text-to-Speech” in <i>Interspeech</i>, 2019</p>
 </main>
 </body></html>
