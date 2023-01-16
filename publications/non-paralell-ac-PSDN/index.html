@@ -115,8 +115,10 @@ pre code {
 	<b>The main goal of accent conversion (AC) is to convert the accent of speech into the target accent while preserving the content and timbre</b>. Previous reference-based methods rely on a reference utterance in the inference phase, which limits their practical application. What's more, previous reference-free methods mostly require parallel data in the training phase. In this paper, we propose a reference-free method based on non-parallel data from the perspective of feature disentanglement. Pseudo Siamese Disentanglement Network (PSDN) is proposed to disentangle accent information from the content representation and model the target accent. Besides, a timbre augmentation technique is proposed to enhance the ability of timbre retaining for speakers without target-accent data. Experimental results show that the proposed system can convert the accent of native American English speech into Indian accent with higher accentedness (3.34) than the baseline (2.72) and input (1.34). Moreover, the naturalness of converted speech is comparable to that of the input.
 </ul>
 
-<h2>Experiments: convert the accent of input speech into Indian accent</h2>
-
+<h2>Experiments on synthetic data: </h2>
+<ul>
+	Model is trained and evaluated on TTS synthetic speech. The target accent is Indian accent.
+</ul>
 <ul>
     <li><b>Input speech</b>: Original speech recordings.</li>
     <li><b>Text</b>: Corresponding texts of input speech recordings.</li>
@@ -441,6 +443,174 @@ pre code {
     </tr>
 </tbody>
 </table>
+
+<h2>Experiments on real data: foreign-to-native (Updated on 2022.1.16)</h2>
+<ul>
+	Two types of native accent are evaluated as target accent, including British and American.
+	Models are trained on L2-ARCTIC[3] as well as inhouse datasets corresponding to the target accent, respectively.
+</ul>
+<ul>
+    <li><b>Recording of British accent:</b>: 
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/british_recording/10000001-1.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio></li>
+    <li><b>Recording of American accent:</b>: Original speech recordings.</li>
+</ul>
+
+<table width="100%" class="samples">
+<tbody>
+    <tr>
+        <th>Speaker</th>
+        <th>Input speech</th>
+        <th>Proposed(British)</th>
+        <th>Proposed(American)</th>
+    </tr>
+    <tr>
+        <td rowspan="2">Male1(Arabic)</td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/foreign_input/ABA_arctic_a0001.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/british_output/ABA_arctic_a0001_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/american_output/ABA_arctic_a0001_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/foreign_input/ABA_arctic_a0002.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/british_output/ABA_arctic_a0002_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/american_output/ABA_arctic_a0002_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="2">Male2(Mandarin)</td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/foreign_input/BWC_arctic_a0001.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/british_output/BWC_arctic_a0001_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/american_output/BWC_arctic_a0001_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/foreign_input/BWC_arctic_a0002.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/british_output/BWC_arctic_a0002_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/american_output/BWC_arctic_a0002_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="2">Female1(Vietnamese)</td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/foreign_input/THV_arctic_a0003.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/british_output/THV_arctic_a0003_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/american_output/THV_arctic_a0003_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/foreign_input/THV_arctic_a0004.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/british_output/THV_arctic_a0004_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/american_output/THV_arctic_a0004_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="2">Female2(Mandarin)</td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/foreign_input/NCC_arctic_a0003.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/british_output/NCC_arctic_a0003_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/american_output/NCC_arctic_a0003_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/foreign_input/NCC_arctic_a0004.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/british_output/NCC_arctic_a0004_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/real/foreign_to_native/american_output/NCC_arctic_a0004_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+
+</tbody>
+</table>
+
+<h2>Experiments on real data: native-to-foreign (Updated on 2022.1.16)</h2>
+
 
 <h2>References</h2>
 <p>[1] Noam Mor, Lior Wolf, Adam Polyak, and Yaniv Taigman, “Autoencoder-based music translation,” in <i>International Conference on Learning Representations</i>, 2019</p>
