@@ -1,0 +1,804 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-171609755-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-171609755-1');
+</script>
+<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>Non-Parallel Accent Conversion using Pseudo Siamese Disentanglement Network</title>
+<link rel="icon" href="../../media/image/favicon.png"></head>
+<style>
+body{
+    padding: 0;
+    margin: 0;
+}
+
+.title {
+    background-color: rgb(25,25,112);
+    width: 100%;
+    text-align: center
+}
+
+.title td{
+    padding: 5px;
+}
+
+.title .logo{
+    width: 220px;
+}
+
+.title h1{
+    font-size: 18pt;
+    font-family: calibri, verdana, helvetica, sans-serif, Arial, Times, serif;
+    color: white;
+    line-height: 1.15;
+}
+
+.title h2{
+    font-size: 12pt;
+    font-family: calibri, verdana, helvetica, sans-serif, Arial, Times, serif;
+    font-style: italic;
+    color: white;
+    line-height: 1.15;
+}
+
+main{
+    font-family: calibri, verdana, helvetica, sans-serif, Arial, Times, serif;
+    font-size: 18px;
+    padding: 0 10px 0 10px;
+}
+
+main h2{
+    font-size: 20px;
+}
+
+main table.samples{
+    text-align: center;
+}
+
+main table.samples th{
+    border-bottom: 2px solid #333;
+    width: 16%;
+    height: 60px;
+}
+
+main table.samples td{
+    border-right: 1px #333 solid;
+    border-bottom: 1px #666 solid;
+    width: 16%;
+    height: 60px;
+}
+
+.mtf { 
+    background-color: rgb(225, 225, 255);
+}
+
+.ftm{
+    background-color: rgb(255, 225, 225);
+}
+
+.source{
+    background-color: rgb(225, 255, 225);
+}
+
+audio{
+  width: 250px;
+}
+
+pre code {
+  background-color: #eee;
+  border: 1px solid #999;
+  display: block;
+  padding: 5px;
+}
+
+</style>
+<body>
+<table class="title">
+<tbody>
+<tr>
+<td>
+<h1>Zero-shot Accent Conversion using Pseudo Siamese Disentanglement Network</h1>
+<h2>Anonymous submission to INTERSPEECH 2023</h2>
+<!-- <h2>Dongya Jia, Qiao Tian, Jiaxin Li, Yuanzhe Chen, Kainan Peng, Mingbo Ma, Yuping Wang, Yuxuan Wang</h2>
+<h2><b>S</b>peech, <b>A</b>udio & <b>M</b>usic <b>I</b>ntelligence (SAMI), ByteDance</h2> -->
+</td>
+</tbody>
+</table>
+<main>
+
+<h2>1. Abstract</h2>
+<ul>
+	The goal of accent conversion (AC) is to <b>convert the accent of speech into the target accent while preserving the content and speaker identity</b>.
+Previous methods rely on reference utterances in the inference phase or are unable to preserve the speaker timbre.
+In this paper, we propose a zero-shot accent conversion method, which is able to convert unseen speakers' utterances into a target accent.
+Pseudo Siamese Disentanglement Network (PSDN) is proposed to disentangle the accent information from the content representation and model the target accent. Besides, a speaker augmentation method is proposed to enhance the ability to retain speaker identity for unseen speakers.
+Experimental results show that the proposed system yields higher accentedness than the input, on two-way conversion including foreign-to-native and native-to-foreign. The naturalness of converted speech is also comparable to that of the input.
+</ul>
+
+<h2>2. Experiments: </h2>
+
+<h3>2.1 Foreign-to-native conversion:</h3>
+<ul>
+	<li>
+	The target accent is British. Models are trained on LibriTTS[1] as well as an inhouse dataset, which contains 1 British speaker.
+	</li>
+	<li>
+	Samples of British accent from training set:
+		<audio controls="">
+			<source src="wav/British/reference_utterances/000008.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+		</audio>
+		<audio controls="">
+			<source src="wav/British/reference_utterances/000011.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+		</audio>
+	</li>
+	<li>
+	Input speech below come from L2-ARCTIC[2], where each speaker is a non-native English speaker and has a foreign accent.
+	</li>
+</ul>
+
+<table width="100%" class="samples">
+<tbody>
+    <tr>
+        <th>Speaker</th>
+        <th>Text</th>
+        <th>Input speech</th>
+        <th>Proposed</th>
+        <th>w/o PSDN</th>
+        <th>w/o speaker aug</th>
+    </tr>
+    <tr>
+        <td rowspan="3">Male1(Arabic)</td>
+        <td>
+            Author of the danger trail Philip Steels etc.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/input/ABA_arctic_a0001.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system2/ABA_arctic_a0001_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system1/ABA_arctic_a0001_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system3/ABA_arctic_a0001_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Not at this particular case Tom apologized Whittemore.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/input/ABA_arctic_a0002.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system2/ABA_arctic_a0002_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system1/ABA_arctic_a0002_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system3/ABA_arctic_a0002_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            For the twentieth time that evening the two men shook hands.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/input/ABA_arctic_a0003.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system2/ABA_arctic_a0003_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system1/ABA_arctic_a0003_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system3/ABA_arctic_a0003_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="3">Male2(Korean)</td>
+        <td>
+            Author of the danger trail Philip Steels etc.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/input/HKK_arctic_a0001.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system2/HKK_arctic_a0001_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system1/HKK_arctic_a0001_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system3/HKK_arctic_a0001_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Not at this particular case Tom apologized Whittemore.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/input/HKK_arctic_a0002.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system2/HKK_arctic_a0002_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system1/HKK_arctic_a0002_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system3/HKK_arctic_a0002_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            For the twentieth time that evening the two men shook hands.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/input/HKK_arctic_a0003.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system2/HKK_arctic_a0003_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system1/HKK_arctic_a0003_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system3/HKK_arctic_a0003_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="3">Female1(Mandarin)</td>
+        <td>
+            Author of the danger trail Philip Steels etc.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/input/NCC_arctic_a0001.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system2/NCC_arctic_a0001_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system1/NCC_arctic_a0001_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system3/NCC_arctic_a0001_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Not at this particular case Tom apologized Whittemore.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/input/NCC_arctic_a0002.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system2/NCC_arctic_a0002_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system1/NCC_arctic_a0002_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system3/NCC_arctic_a0002_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            For the twentieth time that evening the two men shook hands.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/input/NCC_arctic_a0003.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system2/NCC_arctic_a0003_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system1/NCC_arctic_a0003_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system3/NCC_arctic_a0003_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="3">Female2(Vietnamese)</td>
+        <td>
+            Author of the danger trail Philip Steels etc.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/input/THV_arctic_a0001.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system2/THV_arctic_a0001_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system1/THV_arctic_a0001_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system3/THV_arctic_a0001_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Not at this particular case Tom apologized Whittemore.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/input/THV_arctic_a0002.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system2/THV_arctic_a0002_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system1/THV_arctic_a0002_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system3/THV_arctic_a0002_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            For the twentieth time that evening the two men shook hands.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/input/THV_arctic_a0003.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system2/THV_arctic_a0003_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system1/THV_arctic_a0003_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/British/system3/THV_arctic_a0003_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+
+</tbody>
+</table>
+
+<h3>2.2 Native-to-foreign conversion:</h3>
+<ul>
+	<li>
+	The target accent is Indian. Models are trained on LibriTTS[1] as well as an inhouse dataset, which contains 260 Indian-accent speaker.
+	</li>
+	<li>
+	Samples of Indian accent from training set:
+		<audio controls="">
+			<source src="wav/Indian/reference_utterances/000060001.WAV" type="audio/wav">Your browser does not support the audio tag.</source>
+		</audio>
+		<audio controls="">
+			<source src="wav/Indian/reference_utterances/000140007.WAV" type="audio/wav">Your browser does not support the audio tag.</source>
+		</audio>
+	</li>
+	<li>
+	Input speech below come from our inhouse test set, where each speaker is an American local and has a native accent.
+	</li>
+</ul>
+
+<table width="100%" class="samples">
+<tbody>
+    <tr>
+        <th>Speaker(American)</th>
+        <th>Text</th>
+        <th>Input speech</th>
+        <th>Proposed</th>
+        <th>w/o PSDN</th>
+        <th>w/o speaker aug</th>
+    </tr>
+    <tr>
+        <td rowspan="3">Male1</td>
+        <td>
+            He can not come back to his howntown.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/input/M01_Eng_000102.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system2/M01_Eng_000102_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system1/M01_Eng_000102_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system3/M01_Eng_000102_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            I've been there already and I don't want to go back again.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/input/M01_Eng_000106.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system2/M01_Eng_000106_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system1/M01_Eng_000106_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system3/M01_Eng_000106_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            What to do this? We have to decide what our priorities are.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/input/M01_Eng_000107.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system2/M01_Eng_000107_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system1/M01_Eng_000107_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system3/M01_Eng_000107_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="3">Male2</td>
+        <td>
+            Moreover, she was taking the man with her if only in hate.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/input/M05_Eng_000104.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system2/M05_Eng_000104_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system1/M05_Eng_000104_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system3/M05_Eng_000104_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            We should enjoy the time with our grandpa.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/input/M05_Eng_000106.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system2/M05_Eng_000106_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system1/M05_Eng_000106_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system3/M05_Eng_000106_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            I don't think it is a good idea to keep a dog.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/input/M05_Eng_000107.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system2/M05_Eng_000107_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system1/M05_Eng_000107_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system3/M05_Eng_000107_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="3">Female1</td>
+        <td>
+           Father has already leaved, it is still early compared to before.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/input/F01_Eng_000103.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system2/F01_Eng_000103_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system1/F01_Eng_000103_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system3/F01_Eng_000103_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            We should enjoy the time with our grandpa.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/input/F01_Eng_000106.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system2/F01_Eng_000106_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system1/F01_Eng_000106_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system3/F01_Eng_000106_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            I don't think it is a good idea to keep a dog.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/input/F01_Eng_000107.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system2/F01_Eng_000107_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system1/F01_Eng_000107_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system3/F01_Eng_000107_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="3">Female2</td>
+        <td>
+           The increasing tuition fee gives parents anxiety.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/input/F05_Eng_000103.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system2/F05_Eng_000103_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system1/F05_Eng_000103_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system3/F05_Eng_000103_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            She will give birth to a baby.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/input/F05_Eng_000104.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system2/F05_Eng_000104_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system1/F05_Eng_000104_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system3/F05_Eng_000104_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Technologically speaking, California has more advantages.
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/input/F05_Eng_000105.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system2/F05_Eng_000105_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system1/F05_Eng_000105_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+        <td>
+            <audio controls="">
+                <source src="wav/Indian/system3/F05_Eng_000105_out.wav" type="audio/wav">Your browser does not support the audio tag.</source>
+            </audio>
+        </td>
+    </tr>
+</tbody>
+</table>
+
+
+
+<h2>References</h2>
+<p>[1] Heiga Zen, Viet Dang, Rob Clark, et al., “LibriTTS: A Corpus Derived from LibriSpeech for Text-to-Speech” in <i>Interspeech</i>, 2019</p>
+<p>[2] Guanlong Zhao, Sinem Sonsaat, Alif Silpachai, et al., “L2-ARCTIC: A Non-Native English Speech Corpus” in <i>Interspeech</i>, 2018</p>
+</main>
+</body></html>
